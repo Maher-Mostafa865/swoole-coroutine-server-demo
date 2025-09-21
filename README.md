@@ -23,11 +23,13 @@ The `server.php` file contains:
 ## Key Differences
 
 ### Blocking Approach (Commented)
+
 ```php
 sleep(1); // Blocks the entire process
 ```
 
 ### Coroutine Approach (Active)
+
 ```php
 Co::sleep(1); // Non-blocking, allows other requests to be processed
 ```
@@ -41,6 +43,7 @@ Co::sleep(1); // Non-blocking, allows other requests to be processed
 ## Installation
 
 1. Install Swoole extension:
+
 ```bash
 # Using PECL
 pecl install swoole
@@ -52,21 +55,39 @@ sudo apt-get install php-swoole
 ## Usage
 
 1. Run the server:
+
 ```bash
 php server.php
 ```
 
 2. Test with multiple concurrent requests:
+
 ```bash
-# In separate terminals
+# Using curl in separate terminals
 curl http://127.0.0.1:9501
 curl http://127.0.0.1:9501
 curl http://127.0.0.1:9501
+
+# Or using Apache Bench for performance testing
+ab -n 10 -c 10 http://127.0.0.1:9501/
 ```
 
 ## Expected Behavior
 
-With coroutines enabled, all three requests should start at nearly the same time and complete after 1 second, demonstrating that the server can handle multiple requests concurrently without blocking.
+With coroutines enabled, all requests should start at nearly the same time and complete after 1 second, demonstrating that the server can handle multiple requests concurrently without blocking.
+
+### Performance Testing with Apache Bench
+
+The `ab -n 10 -c 10` command will:
+
+- Send 10 total requests (`-n 10`)
+- Use 10 concurrent connections (`-c 10`)
+- Show timing statistics and demonstrate the non-blocking nature
+
+**Expected results with coroutines:**
+
+- All 10 requests should complete in approximately 1 second (not 10 seconds)
+- This proves that requests are processed concurrently, not sequentially
 
 ## License
 
