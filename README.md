@@ -1,43 +1,58 @@
-# Swoole Coroutine Server Demo
+# Professional Swoole WebSocket Chat
 
-A demonstration of Swoole's coroutine capabilities showing the difference between blocking and non-blocking operations in PHP.
+A modern, professional real-time chat application built with Swoole WebSocket server and a beautiful responsive web client.
 
 ## Overview
 
-This project demonstrates how Swoole coroutines can handle concurrent requests efficiently by using non-blocking operations instead of traditional blocking PHP code.
+This project demonstrates a production-ready chat application using Swoole's WebSocket capabilities with professional features like user management, message history, rate limiting, and error handling.
 
 ## Features
 
-- **Blocking vs Non-blocking comparison**: Shows commented code for traditional blocking approach
-- **Coroutine implementation**: Demonstrates Swoole's coroutine functionality
-- **Non-blocking sleep**: Uses `Co::sleep()` instead of `sleep()`
-- **Concurrent request handling**: Multiple requests can be processed simultaneously
+### Server Features
 
-## Code Structure
+- **Professional OOP Structure**: Clean, maintainable code with proper error handling
+- **User Management**: Unique username validation and user tracking
+- **Message History**: Automatic storage and retrieval of recent messages
+- **Rate Limiting**: Prevents spam with configurable message limits
+- **Connection Management**: Proper connection handling
+- **Logging**: Comprehensive server activity logging
+- **Error Handling**: Robust error handling and user feedback
 
-The `server.php` file contains:
+### Client Features
 
-1. **Commented blocking code**: Traditional PHP server approach (lines 3-14)
-2. **Active coroutine code**: Swoole coroutine implementation (lines 17-32)
+- **Modern UI**: Beautiful, responsive design with animations
+- **Real-time Communication**: Instant message delivery and updates
+- **Connection Status**: Visual connection indicators
+- **Auto-reconnection**: Automatic reconnection with exponential backoff
+- **Message History**: Displays recent messages on connection
+- **Mobile Responsive**: Works perfectly on all device sizes
+- **Professional Styling**: Modern gradient design with smooth animations
 
-## Key Differences
+## Architecture
 
-### Blocking Approach (Commented)
+### Server (`server.php`)
 
-```php
-sleep(1); // Blocks the entire process
-```
+- **ChatServer Class**: Main server class with professional structure
+- **Event Handlers**: Organized event handling for all WebSocket events
+- **User Management**: Track connected users with unique names
+- **Message Broadcasting**: Efficient message distribution to all clients
+- **Rate Limiting**: Per-user rate limiting to prevent abuse
+- **History Management**: Automatic message history with size limits
 
-### Coroutine Approach (Active)
+### Client (`client.html`)
 
-```php
-Co::sleep(1); // Non-blocking, allows other requests to be processed
-```
+- **Modern CSS**: Professional styling with gradients and animations
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **WebSocket Client**: Robust WebSocket communication with error handling
+- **Auto-reconnection**: Automatic reconnection with visual feedback
+- **Message Types**: Support for different message types (system, user, error)
+- **Real-time Updates**: Instant message delivery and status updates
 
 ## Requirements
 
 - PHP 7.4+
 - Swoole extension installed
+- Modern web browser with WebSocket support
 - Linux/macOS (Swoole doesn't support Windows)
 
 ## Installation
@@ -54,40 +69,63 @@ sudo apt-get install php-swoole
 
 ## Usage
 
-1. Run the server:
+1. Start the WebSocket server:
 
 ```bash
 php server.php
 ```
 
-2. Test with multiple concurrent requests:
+2. Open the client in your browser:
 
 ```bash
-# Using curl in separate terminals
-curl http://127.0.0.1:9501
-curl http://127.0.0.1:9501
-curl http://127.0.0.1:9501
-
-# Or using Apache Bench for performance testing
-ab -n 10 -c 10 http://127.0.0.1:9501/
+# Open client.html in your browser
+open client.html
+# Or navigate to: file:///path/to/client.html
 ```
 
-## Expected Behavior
+3. Set your name and start chatting!
 
-With coroutines enabled, all requests should start at nearly the same time and complete after 1 second, demonstrating that the server can handle multiple requests concurrently without blocking.
+## Server Features
 
-### Performance Testing with Apache Bench
+### Message Types
 
-The `ab -n 10 -c 10` command will:
+- `set_name`: Set or change your username
+- `message`: Send a chat message
+- `ping`: Keep-alive ping (handled automatically)
 
-- Send 10 total requests (`-n 10`)
-- Use 10 concurrent connections (`-c 10`)
-- Show timing statistics and demonstrate the non-blocking nature
+### Rate Limiting
 
-**Expected results with coroutines:**
+- Maximum 30 messages per minute per user
+- Automatic rate limit enforcement
+- User-friendly error messages
 
-- All 10 requests should complete in approximately 1 second (not 10 seconds)
-- This proves that requests are processed concurrently, not sequentially
+### User Management
+
+- Unique username validation
+- User join/leave notifications
+- Connection tracking and cleanup
+
+## Client Features
+
+### Connection Management
+
+- Visual connection status indicator
+- Automatic reconnection with exponential backoff
+- Connection error handling
+
+### Message Display
+
+- Different message types (own, other, system, error)
+- Message timestamps
+- Smooth animations and transitions
+- Auto-scroll to latest messages
+
+### User Experience
+
+- Responsive design for all screen sizes
+- Professional gradient styling
+- Smooth animations and hover effects
+- Keyboard shortcuts (Enter to send)
 
 ## License
 
