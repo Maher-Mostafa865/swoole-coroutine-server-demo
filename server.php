@@ -38,7 +38,7 @@ class ChatServer
 
     public function onStart($server)
     {
-        $this->log("Professional Chat Server started at ws://127.0.0.1:9502");
+        $this->log("Chat Server started at ws://127.0.0.1:9502");
         $this->log("Server PID: " . getmypid());
         $this->log("Memory usage: " . $this->formatBytes(memory_get_usage(true)));
     }
@@ -52,7 +52,7 @@ class ChatServer
         $welcomeMessage = [
             'type' => 'system',
             'from' => 'Server',
-            'message' => 'Welcome to Professional Chat! Please set your name.',
+            'message' => 'Welcome to Chat! Please set your name.',
             'time' => date('H:i:s'),
             'fd' => $fd
         ];
@@ -328,7 +328,7 @@ class ChatServer
 
     public function start()
     {
-        $this->log("Starting Professional Chat Server...");
+        $this->log("Starting Chat Server...");
         $this->server->start();
     }
 }
